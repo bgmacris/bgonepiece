@@ -9,6 +9,43 @@
     <title>Portfolio</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            /* Ocultar el modal por defecto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: #000000;
+        }
+    
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 5px;
+            position: relative;
+        }
+    
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            color: #000000;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,19 +54,106 @@
         <div class="content">
             <span class="logo"><a href="#">¡Hola Mundo!</a></span>
             <ul>
-                <ul>
-                    <li><a href="/">Sobre mi</a></li>
-                    <li><a href="roadmap/">Roadmap</a></li>
-                </ul>
+                <li><a href="/">Sobre mi</a></li>
+                <li><a href="{% url 'roadmap' %}">Roadmap</a></li>
             </ul>
         </div>
     </header>
     <div class="container">
-        
+        <div class="task-list">
+            <h1>Lista de Tareas</h1>
+            <!-- Mostrar el botón solo si el usuario es admin -->
+            {% if is_admin %}
+            <button id="open-modal-btn">Abrir Modal</button>
+            {% endif %}
+            <ul>
+                {% for task in tasks %}
+                <li>
+                    <h2>{{ task.title }}</h2>
+                    <p>{{ task.comment }}</p>
+                    <p><strong>Asignado a:</strong> {{ task.assigned_user }}</p>
+                    <p><strong>Estado:</strong> {{ task.get_status_display }}</p>
+                    <p><strong>Fecha de inicio:</strong> {{ task.start_date }}</p>
+                    <p><strong>Fecha de fin:</strong> {{ task.end_date }}</p>
+                    <p><strong>Comentario:</strong> {{ task.comment }}</p>
+                    <p><strong>Prioridad:</strong> {{ task.priority }}</p>
+                    <p><strong>Etiquetas:</strong> {{ task.tags }}</p>
+                </li>
+                {% empty %}
+                <li>No hay tareas disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Modal para agregar tarea -->
+        <div id="modal" class="modal">
+            <!-- Contenido del modal -->
+            <div class="modal-content">
+                <!-- Botón para cerrar el modal -->
+                <span id="close-modal-btn" class="close">&times;</span>
+                <!-- Contenido del modal -->
+                <form id="task-form" method="post" action="{% url 'create_task' %}">
+                    {% csrf_token %}
+                    {{ task_form.as_p }}
+                    <button type="submit">Crear Tarea</button>
+                </form>
+            </div>
+        </div>
     </div>
+
+    
+
     <div class="goto-top">
         <a href="#top"><i class="fas fa-arrow-up"></i></a>
     </div>
+
+    <!-- Script JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Obtener referencias al botón de abrir modal y al modal
+        var openModalBtn = document.getElementById("open-modal-btn");
+        var modal = document.getElementById("modal");
+
+        // Función para abrir el modal
+        openModalBtn.addEventListener("click", function () {
+            modal.style.display = "block"; // Mostrar el modal al hacer clic en el botón
+        });
+
+        // Función para cerrar el modal
+        document.getElementById("close-modal-btn").addEventListener("click", function () {
+            modal.style.display = "none"; // Ocultar el modal al hacer clic en la 'x'
+        });
+
+        // Cerrar el modal si se hace clic fuera del modal
+        window.addEventListener("click", function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Manejar el envío del formulario mediante AJAX
+        $("#task-form").submit(function (event) {
+            event.preventDefault();
+            var form = $(this);
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    // Aquí puedes manejar la respuesta del servidor
+                    console.log(response);
+                    // Cerrar el modal después de enviar el formulario
+                    modal.style.display = "none";
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    // Manejar errores aquí
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
