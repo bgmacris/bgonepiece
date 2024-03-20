@@ -247,7 +247,7 @@ section.projects div.cards{
 }
 section.projects div.card{
     width: 350px;
-    height: 480px;
+    height: 490px;
     display: flex;
     flex-direction: column;
     align-items: center;
