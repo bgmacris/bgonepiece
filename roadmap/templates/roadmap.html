@@ -19,7 +19,7 @@
     <div class="kanban-board">
         <div class="column to-do" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)">
             <h2>
-                To do 
+                Por Hacer 
                 {% if is_admin %}
                 <button id="open-modal-btn" onclick="abrirModal('todo')"><i class="fas fa-plus">Añadir</i></button>
                 {% endif %}
@@ -49,7 +49,7 @@
         </div>
         <div class="column in-progress" ondrop="drop(event, 'in_progress')" ondragover="allowDrop(event)">
             <h2>
-                In Progress
+                En proceso
                 {% if is_admin %}
                 <button id="open-modal-btn" onclick="abrirModal('in_progress')"><i class="fas fa-plus">Añadir</i></button>
                 {% endif %}
@@ -73,7 +73,7 @@
         </div>
         <div class="column done" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
             <h2>
-                Done
+                Hecho
                 {% if is_admin %}
                 <button id="open-modal-btn" onclick="abrirModal('done')"><i class="fas fa-plus">Añadir</i></button>
                 {% endif %}
