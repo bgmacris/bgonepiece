@@ -26,26 +26,86 @@
         <div class="task-list">
             <h1>Lista de Tareas</h1>
             <!-- Mostrar el botón solo si el usuario es admin -->
-            {% if is_admin %}
-            <button id="open-modal-btn">Abrir Modal</button>
-            {% endif %}
-            <ul>
-                {% for task in tasks %}
-                <li>
-                    <h2>{{ task.title }}</h2>
-                    <p>{{ task.comment }}</p>
-                    <p><strong>Asignado a:</strong> {{ task.assigned_user }}</p>
-                    <p><strong>Estado:</strong> {{ task.get_status_display }}</p>
-                    <p><strong>Fecha de inicio:</strong> {{ task.start_date }}</p>
-                    <p><strong>Fecha de fin:</strong> {{ task.end_date }}</p>
-                    <p><strong>Comentario:</strong> {{ task.comment }}</p>
-                    <p><strong>Prioridad:</strong> {{ task.priority }}</p>
-                    <p><strong>Etiquetas:</strong> {{ task.tags }}</p>
-                </li>
-                {% empty %}
-                <li>No hay tareas disponibles.</li>
-                {% endfor %}
-            </ul>
+            <div class="kanban-board">
+                <div class="column to-do" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)">
+                    <h2>
+                        To do 
+                        {% if is_admin %}
+                        <button id="open-modal-btn" onclick="abrirModal('todo')"><i class="fas fa-plus">Añadir</i></button>
+                        {% endif %}
+                    </h2>
+                    <ul class="tasks to-do">
+                        {% for task in task_todo %}
+                        <li class="task to-do" 
+                            data-id="{{ task.id }}"
+                            data-title="{{ task.title }}"
+                            data-comment="{{ task.comment }}" 
+                            data-assigned-user="{{ task.assigned_user }}" 
+                            data-start-date="{{ task.start_date }}" 
+                            data-end-date="{{ task.end_date }}" 
+                            data-priority="{{ task.priority }}" 
+                            data-tag="{{ task.tag }}" 
+                            data-status="{{ task.status }}"
+                            draggable="true" ondragstart="drag(event)"
+                            onclick="showTaskDetails(this)">
+                            <h3>{{ task.title }}</h3>                            
+                            <p><strong>Asignado:</strong> {{ task.assigned_user }}</p>                            
+                            <p><strong>Etiquetas:</strong> {{ task.tags }}</p>
+                        </li>
+                        {% empty %}
+                        <li>No hay tareas :(</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="column in-progress" ondrop="drop(event, 'in_progress')" ondragover="allowDrop(event)">
+                    <h2>
+                        In process
+                        {% if is_admin %}
+                        <button id="open-modal-btn" onclick="abrirModal('in_progress')"><i class="fas fa-plus">Añadir</i></button>
+                        {% endif %}
+                    </h2>
+                    <ul class="tasks in-progress">
+                        {% for task in task_in_progress %}
+                        <li class="task in-progress" data-id="{{ task.id }}" data-title="{{ task.title }}" data-comment="{{ task.comment }}"
+                            data-assigned-user="{{ task.assigned_user }}" data-start-date="{{ task.start_date }}"
+                            data-end-date="{{ task.end_date }}" data-priority="{{ task.priority }}" data-tag="{{ task.tag }}"
+                            data-status="{{ task.status }}" 
+                            draggable="true" ondragstart="drag(event)"
+                            onclick="showTaskDetails(this)">
+                            <h3>{{ task.title }}</h3>
+                            <p><strong>Asignado a:</strong> {{ task.assigned_user }}</p>
+                            <p><strong>Etiquetas:</strong> {{ task.tags }}</p>
+                        </li>
+                        {% empty %}
+                        <li>No hay tareas :(</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="column done" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
+                    <h2>
+                        Done
+                        {% if is_admin %}
+                        <button id="open-modal-btn" onclick="abrirModal('done')"><i class="fas fa-plus">Añadir</i></button>
+                        {% endif %}
+                    </h2>
+                    <ul class="tasks done">
+                        {% for task in task_done %}
+                        <li class="task done" data-id="{{ task.id }}" data-title="{{ task.title }}" data-comment="{{ task.comment }}"
+                            data-assigned-user="{{ task.assigned_user }}" data-start-date="{{ task.start_date }}"
+                            data-end-date="{{ task.end_date }}" data-priority="{{ task.priority }}" data-tag="{{ task.tag }}"
+                            data-status="{{ task.status }}" 
+                            draggable="true" ondragstart="drag(event)"
+                            onclick="showTaskDetails(this)">
+                            <h3>{{ task.title }}</h3>                            
+                            <p><strong>Asignado a:</strong> {{ task.assigned_user }}</p>                            
+                            <p><strong>Etiquetas:</strong> {{ task.tags }}</p>
+                        </li>
+                        {% empty %}
+                        <li>No hay tareas :(</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -59,31 +119,130 @@
             <form id="task-form" method="post" action="{% url 'create_task' %}">
                 {% csrf_token %}
                 {{ task_form.as_p }}
-                <button type="submit">Crear Tarea</button>
+                <button type="submit">Añadir</button>
             </form>
         </div>
+    </div>
+
+    <!-- Script JS para mover las tareas de columnas -->
+    <script>
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.dataset.id);
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drop(ev, columna_destino) {
+                var data = ev.dataTransfer.getData("text");
+                var tarea = document.getElementById(data);
+
+                actualizarEstadoTarea(data, columna_destino);
+            }
+
+        function actualizarEstadoTarea(id_tarea, columna_destino) {
+                var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                var url = '/actualizar_tarea_estado/'; // URL de la vista que manejará la actualización de estado
+                var formData = new FormData();
+                formData.append('id', id_tarea);
+                formData.append('id_status', columna_destino);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', url, true);
+                xhr.setRequestHeader('X-CSRFToken', csrfToken);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        console.log('Estado de tarea actualizado correctamente');
+                    } else {
+                        console.error('Error al actualizar estado de tarea');
+                    }
+                };
+                xhr.send(formData);
+                location.reload();
+            }
+    </script>
+
+    <!-- Contenedor para el popup -->
+    <div id="popup" class="task-popup">
+        <!-- Contenido de la tarea en el popup -->
+        <div id="task-popup-content">
+            <h3 id="popup-title"></h3>
+            <p id="popup-comment"></p>
+            <p id="popup-assigned-user"></p>
+            <p id="popup-start-date"></p>
+            <p id="popup-end-date"></p>
+            <p id="popup-priority"></p>
+            <p id="popup-tag"></p>
+            <p id="popup-status"></p>
+        </div>
+        <button onclick="closePopup()">Cerrar</button>
     </div>
 
     <div class="goto-top">
         <a href="#top"><i class="fas fa-arrow-up"></i></a>
     </div>
 
-    <!-- Script JavaScript -->
+    <!-- Script JavaScript manejar popups tareas -->
+    <script>
+        function showTaskDetails(task) {
+            document.getElementById('popup-title').innerText = task.dataset.title;
+            document.getElementById('popup-comment').innerText = "Comentario: " + task.dataset.comment;
+            document.getElementById('popup-assigned-user').innerText = "Usuario asignado: " + task.dataset.assignedUser;
+            document.getElementById('popup-start-date').innerText = "Fecha de inicio: " + task.dataset.startDate;
+            document.getElementById('popup-end-date').innerText = "Fecha de finalización: " + task.dataset.endDate;
+            document.getElementById('popup-priority').innerText = "Prioridad: " + task.dataset.priority;
+            document.getElementById('popup-tag').innerText = "Etiqueta: " + task.dataset.tag;
+            document.getElementById('popup-status').innerText = "Estado: " + task.dataset.status;
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        window.onload = function () {
+                var columnas = document.querySelectorAll('.column');
+                columnas.forEach(function (columna) {
+                    var tareas = columna.querySelectorAll('.task');
+                    var alturaTotal = 100;
+                    tareas.forEach(function (tarea) {
+                        alturaTotal += tarea.offsetHeight;
+                    });
+                    columna.style.height = alturaTotal + 'px';
+                });
+            };
+    </script>
+
+    <!-- Script JavaScript manejar creacion de tareas -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        // Obtener referencias al botón de abrir modal y al modal
-        var openModalBtn = document.getElementById("open-modal-btn");
-        var modal = document.getElementById("modal");
+        // Función para abrir el modal y establecer el estado de la tarea
+        function abrirModal(estado) {
+            // Establecer el estado de la tarea en el formulario
+            console.log("AA", estado)
+            document.getElementById("id_status").value = estado;
 
-        // Función para abrir el modal
-        openModalBtn.addEventListener("click", function () {
-            modal.style.display = "block"; // Mostrar el modal al hacer clic en el botón
-        });
+            // Ocultar campo timetile en el formulario
+            var timeline = document.getElementById("id_timeline_date");
+            var timeline_label = document.querySelector("label[for='id_timeline_date']");
+            // Ocultar el elemento cambiando su estilo CSS
+            timeline.style.display = "none";
+            timeline_label.style.display = "none";
+
+            // Mostrar el modal
+            var modal = document.getElementById("modal");
+            modal.style.display = "block";
+        }
 
         // Función para cerrar el modal
-        document.getElementById("close-modal-btn").addEventListener("click", function () {
-            modal.style.display = "none"; // Ocultar el modal al hacer clic en la 'x'
-        });
+        function cerrarModal() {
+            var modal = document.getElementById("modal");
+            modal.style.display = "none"; // Ocultar el modal
+        }
+
+        // Agregar evento de clic al botón de cerrar modal
+        document.getElementById("close-modal-btn").addEventListener("click", cerrarModal);
 
         // Cerrar el modal si se hace clic fuera del modal
         window.addEventListener("click", function (event) {

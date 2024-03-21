@@ -5,7 +5,14 @@
     --dark: black;
     --green-light: #00df5e;
     --yellow: #f7df1e;
+    --yellow-light: #f7e877;
     --gray: #828282;
+    --red: #ee0101;
+    --green-light2: #24bf90;
+    --blue-light: #5cc8db;
+    --blue-light2: #5e9fe0;
+    --blue-dark: #23367f;
+    --purple-light: #ae8fe8;
     --gray-200: #333333;
     --gray-400: #212121;
     --gray-400-rgb: 33, 33, 33;
@@ -382,6 +389,160 @@ div.goto-top i {
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+}
+
+
+
+/* CSS para la tabla de tareas*/
+#open-modal-btn{
+    margin-bottom: 10px;
+}
+
+.kanban-board {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 10px;
+    margin-top: 15px;
+}
+
+
+
+/* Color titulo columna to-do */
+.to-do h2 {
+    color: #FFFFFF;
+}
+
+/* Columna to-do*/
+.to-do {
+    border: 1px solid #3D3D3D;
+    background-color: #3D3D3D;
+    color: var(--white);
+}
+
+/* Tareas to-do */
+li.task.to-do {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #2F4F4F;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #101010;
+}
+li.task.to-do p{
+    color: #808080;
+}
+li.task.to-do h3{
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+li.task.to-do strong{
+    margin-left: 5px;
+    color: #6495ED;
+}
+
+
+/* Color titulo columna in-progress */
+.in-progress h2 {
+    color: #FFFFFF;
+}
+
+/* Titulo columna in-progress*/
+.in-progress {
+    border: 1px solid #3D3D3D;
+    background-color: #3D3D3D;
+    color: var(--white);
+}
+
+/* Tareas in-progress */
+li.task.in-progress {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #2F4F4F;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #1C1C1C;
+}
+li.task.in-progress p{
+    color: #808080;
+}
+li.task.in-progress h3{
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+li.task.in-progress strong{
+    margin-left: 5px;
+    color: #8A2BE2;
+}
+
+
+/* Color titulo columna done */
+.done h2 {
+    color: #FFFFFF;
+}
+
+/* Titulo columna done*/
+.done {
+    border: 1px solid #3D3D3D;
+    background-color: #3D3D3D;
+    color: var(--white);
+}
+/* Tareas done */
+li.task.done {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #2F4F4F;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #141414;
+}
+li.task.done p{
+    color: #808080;
+}
+li.task.done h3{
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+li.task.done strong{
+    margin-left: 5px;
+    color: #D4AF37;
+}
+
+/* Popup tareas */
+.task-popup {
+    display: none;
+    /* Por defecto, oculto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--gray-200);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 1000;
+    /* Asegura que el popup esté por encima de otros elementos */
+}
+
+
+/* Boton de añadir tareas general */
+#open-modal-btn-to-do,
+#open-modal-btn{
+    margin-left: 10px;
+    border-radius: 15px;
+    color: #2C3E50;
+    border-color: #2C3E50;
+    background-color: #CCCCCC;
+}
+#open-modal-btn-to-do i,
+#open-modal-btn i{
+    margin: 5px;
+    margin-left: 2px;
+    margin-right: 3px;
 }
 
 @media screen and (max-width: 900px) {
