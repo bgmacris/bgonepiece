@@ -1,171 +1,167 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-</head>
-<body>
-    <div id="top"></div>
-    <header>
-        <div class="content">
-            <span class="logo"><a href="#">¡Hola Mundo!</a></span>
-            <ul>
-                <ul>
-                    <li><a href="#about-me">Sobre mi</a></li>
-                    <li><a href="#projects">Proyectos</a></li>
-                    <li><a href="#skills">Habilidades</a></li>
-                </ul>
-            </ul>
-        </div>
-    </header>
-    <div class="container">
-    <main>
-        <div class="left">
-            <h1>Hola, soy<br>
-                Bogdan Macris
-            </h1>
-            <h2>
-                Python Developer :P
-            </h2>
-            <div class="btn">
-                <button class="cv"><a id="pdf" href="{% static 'cv/cv.pdf' %}" target="_fblank">Descargar CV</a></button>
-            </div>
+{% extends 'base.html' %}
 
+{% load static %}
+{% block container %}
+<main>
+    <div class="left">
+        <h1>Hola, soy<br>
+            Bogdan Macris
+        </h1>
+        <h2>
+            Python Developer :P
+        </h2>
+        <div class="btn">
+            <button class="cv"><a id="pdf" href="{% static 'cv/cv.pdf' %}" target="_fblank">Descargar CV</a></button>
         </div>
-        <div class="right">
-            <img src="{% static 'images/keystroke.gif' %}" alt="">
-        </div>
-    </main>
-    <section class="about-me">
-        <h2 id="about-me" class="target">Sobre mi</h2>
-        <p>Buenas! Soy un programador especializado en Python con experiencia en el desarrollo de backend utilizando 
-            Django y Django Rest Framework, así como Flask para proyectos más simples. Mi interés por la manipulación 
-            de datos y el scraping web me llevó a desarrollarme en herramientas como Pandas, NumPy y el cluster PySpark de Apache 
-            Spark para manipular, transformar y limpiar datos de manera eficiente. Tambien otras herramientas como Selenium, Undetected Chromedriver, scrapy, midlewares para recopilar información. Estoy comprometido con 
-            la creación de soluciones efectivas y estoy siempre dispuesto a enfrentar nuevos desafíos en el mundo 
-            del desarrollo de software.</p>
-    </section>
-    <section class="contacts" id="contacts">
-        <div class="contact">
-            <div class="icon">
-                <i class="far fa-envelope"></i>
-            </div>
-            <span class="title"><a href="mailto:bgmacris9999@gmail.com">E-mail</a></span>            
-            <span class="description">bgmacris9999@gmail.com</span>            
-        </div>
-        <div class="contact">
-            <div class="icon">
-                <i class="fab fa-linkedin"></i>
-            </div>
-            <span class="title"><a href="https://www.linkedin.com/in/bogdan-macris-9481a41a7" target="_fblank">LinkedIn</a></span>
-            <span class="description">Bogdan Macris</span>
-        </div>
-        <div class="contact">
-            <div class="icon">
-                <i class="fab fa-github"></i>
-            </div>
-            <span class="title"><a href="https://github.com/bgmacris" target="_fblank">GitHub</a></span>
-            <span class="description">bgmacris</span>
-        </div>
-    </section>
-    <section class="projects">
-        <h2 id="projects" class="target">Algunos de mis proyectos</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="img-project">
-                    <img src="{% static 'images/backend.png' %}" alt="">
-                </div>
-                <div class="description-project">
-                    <span class="title-project">Simple backend django</span>
-                    <span class="tag-project">Repositorio: <a href="https://github.com/bgmacris/bgonepiece">GitHub</a></span>
-                    <span class="tag-project">Tecnologias: Python / html / css</span>                        
-                    <span class="tag-project">Backend desarrollado utilizando el framework django. El frontend es una template gratis adaptada para mi portafolio.</span>
-                    <span class="tag-project">Esta web a sido desarrollada y desplegada en una noche, solo contiene lo basico e informacion de mi. Pero me gustaria poder añadir poco a poco nuevas funcionalidades.</span>
-                    <span class="tag-project">El hosting utilizado es render.com el plan gratuito. De ahi la lentitud de la pagina...</span>
-                    <span class="tag-project">Porfavor si quiere saber mas sobre los proyectos aqui postrados, lea el <a href="https://github.com/bgmacris/bgonepiece">README</a> del backend en django de mi portafolio. Se explica como instalar y ejecutar.</span>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img-project">
-                    <img src="{% static 'images/snake-game.png' %}" alt="">
-                </div>
-                <div class="description-project">
-                    <span class="title-project">Algoritmo A* Snake Game</span>
-                    <span class="tag-project">Repositorio: <a href="https://github.com/bgmacris/a_star__snake">GitHub</a></span>
-                    <span class="tag-project">Tecnologias: Python</span>                        
-                    <span class="tag-project">Algoritmo de hace 3 años, inicios de estudios en IA. Actualmente estoy reformando todo el algormitmo, para poder optimizar el codigo y que sea mas eficiente.</span>
-                    <span class="tag-project">El codigo utiliza PyGame para la interfaz y OOP para implementar una busqueda informada, utilizando el algoritmo A*, el codigo tambien incluye una implementacion el algoritmo dijkstra.</span>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img-project">
-                    <img src="{% static 'images/tic_tac_toe.png' %}" alt="">
-                </div>
-                <div class="description-project">
-                    <span class="title-project">Algoritmo minimax TicTacToe Game</span>
-                    <span class="tag-project">Repositorio: <a href="https://github.com/bgmacris/3_en_raya/">GitHub</a></span>
-                    <span class="tag-project">Tecnologias: Python</span>                        
-                    <span class="tag-project">El codigo utiliza PyGame para la interfaz y OOP para el algoritmo. El algoritmo minimax recorre el árbol de juego en profundidad hasta alcanzar un movimiento. Cada movimiento posible es evaluado segun la funcion de evaluación definido.</span>
-                    <span class="tag-project">Es una practica sencilla, y en este caso es viable poder recorrer y calcular todos los nodos, no supone una gran capacidad de calculo.</span>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img-project">
-                    <img src="{% static 'images/luffy_smile.png' %}" alt="">
-                </div>
-                <div class="description-project">
-                    <span class="title-project">One Piece scraping</span>
-                    <span class="tag-project">Repositorio: <a href="https://github.com/bgmacris/bgonepiece/tree/main/scraping-one-piece">GitHub</a></span>
-                    <span class="tag-project">Tecnologias: Python</span>
-                    <span class="tag-project">Aplicacion creada para la comodidad de leer el manga de one piece en un dispositibo ebook. Automatizando la descarga y exportacion de tomos de una web.</span>
-                    <span class="tag-project">Es una simple aplicacion que esta formada por un crawler que descargar tomos del manga y otro script que se encarga de crear los PDFs de los tomos extraidos.</span>
-                    <span class="tag-project">Proximamente me gustaria implementar una API para la web, siendo esta aplicacion una de sus diferentes funciones.</span>
-                </div>
-            </div>
-        </div>
-        </section>
-    <section class="skills">
-        <h2 id="skills" class="target" >Mis habilidades</h2>
-        <ul>
-            <li><strong>Automatización de Procesos:</strong> Python, Bash</li>
-            <li><strong>Análisis y Manipulación de Datos:</strong> NumPy, PySpark, Pandas, ElasticSearch</li>
-            <li><strong>Parsers de Datos:</strong> XML, CSV, JSON, XMLS, HTML, TXT</li>
-            <li><strong>Scraping Web:</strong> Automatizado, Selenium, Undetected Chromedriver</li>
-            <li><strong>SQL:</strong> Postgres, BigQuery, Procedimientos</li>
-            <li><strong>Creación de Módulos:</strong> Python</li>
-            <li><strong>Control de Versiones:</strong> GitHub, GitLab</li>
-            <li><strong>Odoo:</strong> Desarrollo de Módulos con Python</li>
-            <li><strong>Backend:</strong> Django, Flask</li>
-            <li><strong>APIs:</strong> Consumo, cracion y mantenimiento de APIs</li>                
-        </ul>
-    </section>
-    <section class="info-web">
-        <h2 id="info-web" class="target">Info Web</h2>
-        <p>Esta página web está siendo ejecutada sobre el framework Django. El frontend no fue 
-            desarrollado por mí, sino que lo encontré en el siguiente <a href="">Proyecto de GitHub</a>. 
-            Siendo la template sencilla y facil de manipular, lo he adaptado para mi presentación, 
-            mostrándolo de forma sencilla y rápida.</p>
-    </section>
+
     </div>
-    <footer>
-        <span>
-            <div class="card-serve">
-                <i class="fas fa-code"></i>
-             Fronted hecho por <a href="https://www.github.com/anaskhan28" target="_blank">
-                
-                 Anas Khan</a>. Yo simplemente he cogido la <a href="https://github.com/toidicode/template/tree/master/102-awesome-portfolio">
-                 plantilla</a> y la he adaptado en un proyecto django.
-        </span>
-    </footer>
-    <div class="goto-top">
-        <a href="#top"><i class="fas fa-arrow-up"></i></a>
-      </div>
-</body>
-</html>
+    <div class="right">
+        <img src="{% static 'images/keystroke.gif' %}" alt="">
+    </div>
+</main>
+<section class="about-me">
+    <h2 id="about-me" class="target">Sobre mi</h2>
+    <p>Buenas! Soy un programador especializado en Python con experiencia en el desarrollo de backend utilizando
+        Django y Django Rest Framework, así como Flask para proyectos más simples. Mi interés por la manipulación
+        de datos y el scraping web me llevó a desarrollarme en herramientas como Pandas, NumPy y el cluster PySpark de
+        Apache
+        Spark para manipular, transformar y limpiar datos de manera eficiente. Tambien otras herramientas como Selenium,
+        Undetected Chromedriver, scrapy, midlewares para recopilar información. Estoy comprometido con
+        la creación de soluciones efectivas y estoy siempre dispuesto a enfrentar nuevos desafíos en el mundo
+        del desarrollo de software.</p>
+</section>
+<section class="contacts" id="contacts">
+    <div class="contact">
+        <div class="icon">
+            <i class="far fa-envelope"></i>
+        </div>
+        <span class="title"><a href="mailto:bgmacris9999@gmail.com">E-mail</a></span>
+        <span class="description">bgmacris9999@gmail.com</span>
+    </div>
+    <div class="contact">
+        <div class="icon">
+            <i class="fab fa-linkedin"></i>
+        </div>
+        <span class="title"><a href="https://www.linkedin.com/in/bogdan-macris-9481a41a7"
+                target="_fblank">LinkedIn</a></span>
+        <span class="description">Bogdan Macris</span>
+    </div>
+    <div class="contact">
+        <div class="icon">
+            <i class="fab fa-github"></i>
+        </div>
+        <span class="title"><a href="https://github.com/bgmacris" target="_fblank">GitHub</a></span>
+        <span class="description">bgmacris</span>
+    </div>
+</section>
+<section class="projects">
+    <h2 id="projects" class="target">Algunos de mis proyectos</h2>
+    <div class="cards">
+        <div class="card">
+            <div class="img-project">
+                <img src="{% static 'images/backend.png' %}" alt="">
+            </div>
+            <div class="description-project">
+                <span class="title-project">Simple backend django</span>
+                <span class="tag-project">Repositorio: <a
+                        href="https://github.com/bgmacris/bgonepiece">GitHub</a></span>
+                <span class="tag-project">Tecnologias: Python / html / css</span>
+                <span class="tag-project">Backend desarrollado utilizando el framework django. El frontend es una
+                    template gratis adaptada para mi portafolio.</span>
+                <span class="tag-project">Esta web a sido desarrollada y desplegada en una noche, solo contiene lo
+                    basico e informacion de mi. Pero me gustaria poder añadir poco a poco nuevas funcionalidades.</span>
+                <span class="tag-project">El hosting utilizado es render.com el plan gratuito. De ahi la lentitud de la
+                    pagina...</span>
+                <span class="tag-project">Porfavor si quiere saber mas sobre los proyectos aqui postrados, lea el <a
+                        href="https://github.com/bgmacris/bgonepiece">README</a> del backend en django de mi portafolio.
+                    Se explica como instalar y ejecutar.</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="img-project">
+                <img src="{% static 'images/snake-game.png' %}" alt="">
+            </div>
+            <div class="description-project">
+                <span class="title-project">Algoritmo A* Snake Game</span>
+                <span class="tag-project">Repositorio: <a
+                        href="https://github.com/bgmacris/a_star__snake">GitHub</a></span>
+                <span class="tag-project">Tecnologias: Python</span>
+                <span class="tag-project">Algoritmo de hace 3 años, inicios de estudios en IA. Actualmente estoy
+                    reformando todo el algormitmo, para poder optimizar el codigo y que sea mas eficiente.</span>
+                <span class="tag-project">El codigo utiliza PyGame para la interfaz y OOP para implementar una busqueda
+                    informada, utilizando el algoritmo A*, el codigo tambien incluye una implementacion el algoritmo
+                    dijkstra.</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="img-project">
+                <img src="{% static 'images/tic_tac_toe.png' %}" alt="">
+            </div>
+            <div class="description-project">
+                <span class="title-project">Algoritmo minimax TicTacToe Game</span>
+                <span class="tag-project">Repositorio: <a
+                        href="https://github.com/bgmacris/3_en_raya/">GitHub</a></span>
+                <span class="tag-project">Tecnologias: Python</span>
+                <span class="tag-project">El codigo utiliza PyGame para la interfaz y OOP para el algoritmo. El
+                    algoritmo minimax recorre el árbol de juego en profundidad hasta alcanzar un movimiento. Cada
+                    movimiento posible es evaluado segun la funcion de evaluación definido.</span>
+                <span class="tag-project">Es una practica sencilla, y en este caso es viable poder recorrer y calcular
+                    todos los nodos, no supone una gran capacidad de calculo.</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="img-project">
+                <img src="{% static 'images/luffy_smile.png' %}" alt="">
+            </div>
+            <div class="description-project">
+                <span class="title-project">One Piece scraping</span>
+                <span class="tag-project">Repositorio: <a
+                        href="https://github.com/bgmacris/bgonepiece/tree/main/scraping-one-piece">GitHub</a></span>
+                <span class="tag-project">Tecnologias: Python</span>
+                <span class="tag-project">Aplicacion creada para la comodidad de leer el manga de one piece en un
+                    dispositibo ebook. Automatizando la descarga y exportacion de tomos de una web.</span>
+                <span class="tag-project">Es una simple aplicacion que esta formada por un crawler que descargar tomos
+                    del manga y otro script que se encarga de crear los PDFs de los tomos extraidos.</span>
+                <span class="tag-project">Proximamente me gustaria implementar una API para la web, siendo esta
+                    aplicacion una de sus diferentes funciones.</span>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="skills">
+    <h2 id="skills" class="target">Mis habilidades</h2>
+    <ul>
+        <li><strong>Automatización de Procesos:</strong> Python, Bash</li>
+        <li><strong>Análisis y Manipulación de Datos:</strong> NumPy, PySpark, Pandas, ElasticSearch</li>
+        <li><strong>Parsers de Datos:</strong> XML, CSV, JSON, XMLS, HTML, TXT</li>
+        <li><strong>Scraping Web:</strong> Automatizado, Selenium, Undetected Chromedriver</li>
+        <li><strong>SQL:</strong> Postgres, BigQuery, Procedimientos</li>
+        <li><strong>Creación de Módulos:</strong> Python</li>
+        <li><strong>Control de Versiones:</strong> GitHub, GitLab</li>
+        <li><strong>Odoo:</strong> Desarrollo de Módulos con Python</li>
+        <li><strong>Backend:</strong> Django, Flask</li>
+        <li><strong>APIs:</strong> Consumo, cracion y mantenimiento de APIs</li>
+    </ul>
+</section>
+<section class="info-web">
+    <h2 id="info-web" class="target">Info Web</h2>
+    <p>Esta página web está siendo ejecutada sobre el framework Django. El frontend no fue
+        desarrollado por mí, sino que lo encontré en el siguiente <a href="">Proyecto de GitHub</a>.
+        Siendo la template sencilla y facil de manipular, lo he adaptado para mi presentación,
+        mostrándolo de forma sencilla y rápida.</p>
+</section>
+{% endblock %}
+
+{% block footer %}
+<footer>
+    <span>
+        <div class="card-serve">
+            <i class="fas fa-code"></i>
+            Fronted hecho por <a href="https://www.github.com/anaskhan28" target="_blank">
+
+                Anas Khan</a>. Yo simplemente he cogido la <a
+                href="https://github.com/toidicode/template/tree/master/102-awesome-portfolio">
+                plantilla</a> y la he adaptado en un proyecto django.
+    </span>
+</footer>
+{% endblock %}

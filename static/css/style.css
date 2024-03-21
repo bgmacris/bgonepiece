@@ -5,7 +5,14 @@
     --dark: black;
     --green-light: #00df5e;
     --yellow: #f7df1e;
+    --yellow-light: #f7e877;
     --gray: #828282;
+    --red: #ee0101;
+    --green-light2: #24bf90;
+    --blue-light: #5cc8db;
+    --blue-light2: #5e9fe0;
+    --blue-dark: #23367f;
+    --purple-light: #ae8fe8;
     --gray-200: #333333;
     --gray-400: #212121;
     --gray-400-rgb: 33, 33, 33;
@@ -47,12 +54,12 @@ header{
     height: 60px;
     margin-top: 40px;
     top: 0;
-    margin-bottom: 83px;
+    margin-bottom: 3px;
     position: sticky;
     background-color: rgba(var(--gray-400-rgb), var(--alpha));
 }
 header .content{
-    width: 80%;
+    width: 90%;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -64,7 +71,6 @@ header .content span.logo{
     font-size: 26px;
     font-weight: 700;
     margin-left: 10%;
-    
 
 }
 
@@ -83,6 +89,7 @@ main{
     display: flex;
     justify-content: space-between;
     margin-bottom: 69px;
+    margin-top: 30px;
 
 }
 
@@ -154,6 +161,31 @@ section.about-me p{
     color: var(--gray);
     line-height: 32px;
     text-align: center;
+
+}
+
+section.info-roadmap {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+
+section.info-roadmap h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+section.info-roadmap p {
+    max-width: 745px;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--gray);
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 20px;
 
 }
 
@@ -350,12 +382,217 @@ div.goto-top i {
     height: 60px; /* fixed header height*/
 }
 
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #000000;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #000000;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+/* CSS para la tabla de tareas*/
+#open-modal-btn{
+    margin-bottom: 10px;
+}
+
+.kanban-board {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 10px;
+    margin-top: 15px;
+}
+
+
+
+/* Color titulo columna to-do */
+.to-do h2 {
+    color: #FFFFFF;
+}
+
+/* Columna to-do*/
+.to-do {
+    border: 1px solid #3D3D3D;
+    background-color: #3D3D3D;
+    color: var(--white);
+}
+
+/* Tareas to-do */
+li.task.to-do {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #2F4F4F;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #101010;
+}
+li.task.to-do p{
+    color: #808080;
+}
+li.task.to-do h3{
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+li.task.to-do strong{
+    margin-left: 5px;
+    color: #6495ED;
+}
+
+
+/* Color titulo columna in-progress */
+.in-progress h2 {
+    color: #FFFFFF;
+}
+
+/* Titulo columna in-progress*/
+.in-progress {
+    border: 1px solid #3D3D3D;
+    background-color: #3D3D3D;
+    color: var(--white);
+}
+
+/* Tareas in-progress */
+li.task.in-progress {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #2F4F4F;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #1C1C1C;
+}
+li.task.in-progress p{
+    color: #808080;
+}
+li.task.in-progress h3{
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+li.task.in-progress strong{
+    margin-left: 5px;
+    color: #8A2BE2;
+}
+
+
+/* Color titulo columna done */
+.done h2 {
+    color: #FFFFFF;
+}
+
+/* Titulo columna done*/
+.done {
+    border: 1px solid #3D3D3D;
+    background-color: #3D3D3D;
+    color: var(--white);
+}
+/* Tareas done */
+li.task.done {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #2F4F4F;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #141414;
+}
+li.task.done p{
+    color: #808080;
+}
+li.task.done h3{
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+li.task.done strong{
+    margin-left: 5px;
+    color: #D4AF37;
+}
+
+/* Popup tareas */
+.task-popup {
+    display: none;
+    /* Por defecto, oculto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--gray-200);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 1000;
+    /* Asegura que el popup esté por encima de otros elementos */
+}
+
+
+/* Boton de añadir tareas general */
+#open-modal-btn-to-do,
+#open-modal-btn{
+    margin-left: 10px;
+    border-radius: 15px;
+    color: #2C3E50;
+    border-color: #2C3E50;
+    background-color: #CCCCCC;
+}
+#open-modal-btn-to-do i,
+#open-modal-btn i{
+    margin: 5px;
+    margin-left: 2px;
+    margin-right: 3px;
+}
+
+
+/* Estilos para el botón de menú */
+.menu-button {
+    display: none;
+    background-color: var(--dark);
+    color: var(--white);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+
 @media screen and (max-width: 900px) {
     header{
         margin-bottom: 30px;
     }
     header .content ul{
         display: none;
+    }
+    header .menu-button {
+        display: flex; /* Muestra el botón de menú */
     }
     main{
         flex-direction: column-reverse;
@@ -418,4 +655,50 @@ section.projects {
     font-size: 3rem;
   }
 
+
+  /* Menu desplegable para pantallas pequeñas*/
+  .menu-links {
+      list-style-type: none;
+      padding: 0;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: var(--dark);
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 2px 4px #333333;
+      border-color: #333333;
+  }
+
+  .menu-links li {
+      margin-bottom: 10px;
+  }
+
+  .menu-links li:last-child {
+      margin-bottom: 0;
+  }
+
+  .menu-links li a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+  }
+
+  .menu-links li a:hover {
+      color: var(--green-light);
+  }
+
+  /* Barra desplazamiento kanban */
+  .kanban-board {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .kanban-wrapper {
+      display: inline-block;
+      /* Permite que el contenedor tenga el ancho de su contenido */
+  }
 }
