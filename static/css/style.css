@@ -54,12 +54,12 @@ header{
     height: 60px;
     margin-top: 40px;
     top: 0;
-    margin-bottom: 83px;
+    margin-bottom: 3px;
     position: sticky;
     background-color: rgba(var(--gray-400-rgb), var(--alpha));
 }
 header .content{
-    width: 80%;
+    width: 90%;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -71,7 +71,6 @@ header .content span.logo{
     font-size: 26px;
     font-weight: 700;
     margin-left: 10%;
-    
 
 }
 
@@ -90,6 +89,7 @@ main{
     display: flex;
     justify-content: space-between;
     margin-bottom: 69px;
+    margin-top: 30px;
 
 }
 
@@ -161,6 +161,31 @@ section.about-me p{
     color: var(--gray);
     line-height: 32px;
     text-align: center;
+
+}
+
+section.info-roadmap {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+
+section.info-roadmap h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+section.info-roadmap p {
+    max-width: 745px;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--gray);
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 20px;
 
 }
 
@@ -545,12 +570,29 @@ li.task.done strong{
     margin-right: 3px;
 }
 
+
+/* Estilos para el botón de menú */
+.menu-button {
+    display: none;
+    background-color: var(--dark);
+    color: var(--white);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+
 @media screen and (max-width: 900px) {
     header{
         margin-bottom: 30px;
     }
     header .content ul{
         display: none;
+    }
+    header .menu-button {
+        display: flex; /* Muestra el botón de menú */
     }
     main{
         flex-direction: column-reverse;
@@ -613,4 +655,50 @@ section.projects {
     font-size: 3rem;
   }
 
+
+  /* Menu desplegable para pantallas pequeñas*/
+  .menu-links {
+      list-style-type: none;
+      padding: 0;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: var(--dark);
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 2px 4px #333333;
+      border-color: #333333;
+  }
+
+  .menu-links li {
+      margin-bottom: 10px;
+  }
+
+  .menu-links li:last-child {
+      margin-bottom: 0;
+  }
+
+  .menu-links li a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+  }
+
+  .menu-links li a:hover {
+      color: var(--green-light);
+  }
+
+  /* Barra desplazamiento kanban */
+  .kanban-board {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .kanban-wrapper {
+      display: inline-block;
+      /* Permite que el contenedor tenga el ancho de su contenido */
+  }
 }

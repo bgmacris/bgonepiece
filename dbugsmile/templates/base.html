@@ -20,11 +20,10 @@
     <header>
         <div class="content">
             <span class="logo"><a href="#">¡Hola Mundo!</a></span>
-            <ul>
-                <ul>
-                    <li><a href="/">Sobre mi</a></li>
-                    <li><a href="roadmap/">Roadmap</a></li>
-                </ul>
+            <button class="menu-button" onclick="toggleMenu()">&#9776;</button>
+            <ul id="menu-links" class="menu-links">
+                <li><a href="/">Sobre mi</a></li>
+                <li><a href="{% url 'roadmap' %}">Roadmap</a></li>
             </ul>
         </div>
     </header>
@@ -45,6 +44,16 @@
         <a href="#top"><i class="fas fa-arrow-up"></i></a>
     </div>
 
+    <script>
+        function toggleMenu() {
+            var menuLinks = document.getElementById("menu-links");
+            if (menuLinks.style.display === "none") {
+                menuLinks.style.display = "block";
+            } else {
+                menuLinks.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

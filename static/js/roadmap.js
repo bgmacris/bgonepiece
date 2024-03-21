@@ -95,8 +95,8 @@ function abrirModal(estado) {
     var timeline = document.getElementById("id_timeline_date");
     var timeline_label = document.querySelector("label[for='id_timeline_date']");
     // Ocultar el elemento cambiando su estilo CSS
-    timeline.style.display = "none";
-    timeline_label.style.display = "none";
+    //timeline.style.display = "none";
+    //timeline_label.style.display = "none";
 
     // Mostrar el modal
     var modal = document.getElementById("modal");
